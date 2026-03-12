@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "微信公众号 Markdown 下载器",
+  "version": "0.1.0",
+  "description": "下载微信公众号文章为 Markdown 和本地图片资源。",
+  "permissions": ["activeTab", "downloads", "storage"],
+  "host_permissions": [
+    "https://mp.weixin.qq.com/*",
+    "https://mmbiz.qpic.cn/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mp.weixin.qq.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
