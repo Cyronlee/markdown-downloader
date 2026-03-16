@@ -2,14 +2,20 @@
   "manifest_version": 3,
   "name": "文章 Markdown 下载器",
   "version": "0.1.0",
-  "description": "下载微信公众号与知乎专栏文章为 Markdown 和本地图片资源。",
-  "permissions": ["activeTab", "downloads", "storage"],
+  "description": "下载微信公众号、知乎专栏、掘金与 CSDN 文章为 Markdown 和本地图片资源。",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage"
+  ],
   "host_permissions": [
     "https://mp.weixin.qq.com/*",
     "https://mmbiz.qpic.cn/*",
     "https://zhuanlan.zhihu.com/*",
     "https://picx.zhimg.com/*",
-    "https://pica.zhimg.com/*"
+    "https://pica.zhimg.com/*",
+    "https://blog.csdn.net/*",
+    "https://juejin.cn/post/*"
   ],
   "action": {
     "default_popup": "popup.html"
@@ -18,9 +24,13 @@
     {
       "matches": [
         "https://mp.weixin.qq.com/*",
-        "https://zhuanlan.zhihu.com/*"
+        "https://zhuanlan.zhihu.com/*",
+        "https://blog.csdn.net/*",
+        "https://juejin.cn/post/*"
       ],
-      "js": ["content.js"],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ]

@@ -3,16 +3,18 @@ import type {
   ExtractedArticle,
 } from '../../shared/types';
 import {
+  isCsdnArticleUrl,
   isJuejinArticleUrl,
   isWeixinArticleUrl,
   isZhihuArticleUrl,
 } from '../../shared/utils';
+import { getCsdnArticleState, csdnAdapter } from './csdn';
 import { getJuejinArticleState, juejinAdapter } from './juejin';
 import { getWeixinArticleState, weixinAdapter } from './weixin';
 import { getZhihuArticleState, zhihuAdapter } from './zhihu';
 import type { WebsiteAdapter } from './types';
 
-const adapters: WebsiteAdapter[] = [weixinAdapter, zhihuAdapter, juejinAdapter];
+const adapters: WebsiteAdapter[] = [weixinAdapter, zhihuAdapter, juejinAdapter, csdnAdapter];
 
 export function findAdapter(url: string): WebsiteAdapter | undefined {
   return adapters.find((adapter) => adapter.matches(url));
@@ -32,6 +34,10 @@ export function getActiveArticleState(
 
   if (isJuejinArticleUrl(location.href)) {
     return getJuejinArticleState(document, location.href);
+  }
+
+  if (isCsdnArticleUrl(location.href)) {
+    return getCsdnArticleState(document, location.href);
   }
 
   return {
