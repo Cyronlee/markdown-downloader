@@ -226,7 +226,7 @@ async function initialize(): Promise<void> {
   if (!isSupportedArticleUrl(activeTab.url)) {
     renderStatus({
       title: '当前页面不支持',
-      description: '目前支持 mp.weixin.qq.com 与 zhuanlan.zhihu.com 文章页面。',
+      description: '目前支持 mp.weixin.qq.com、zhuanlan.zhihu.com 与 juejin.cn 文章页面。',
       tone: 'error',
     });
     return;

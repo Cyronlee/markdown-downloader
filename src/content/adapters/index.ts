@@ -2,12 +2,17 @@ import type {
   ActiveArticleState,
   ExtractedArticle,
 } from '../../shared/types';
-import { isWeixinArticleUrl, isZhihuArticleUrl } from '../../shared/utils';
+import {
+  isJuejinArticleUrl,
+  isWeixinArticleUrl,
+  isZhihuArticleUrl,
+} from '../../shared/utils';
+import { getJuejinArticleState, juejinAdapter } from './juejin';
 import { getWeixinArticleState, weixinAdapter } from './weixin';
 import { getZhihuArticleState, zhihuAdapter } from './zhihu';
 import type { WebsiteAdapter } from './types';
 
-const adapters: WebsiteAdapter[] = [weixinAdapter, zhihuAdapter];
+const adapters: WebsiteAdapter[] = [weixinAdapter, zhihuAdapter, juejinAdapter];
 
 export function findAdapter(url: string): WebsiteAdapter | undefined {
   return adapters.find((adapter) => adapter.matches(url));
@@ -23,6 +28,10 @@ export function getActiveArticleState(
 
   if (isZhihuArticleUrl(location.href)) {
     return getZhihuArticleState(document, location.href);
+  }
+
+  if (isJuejinArticleUrl(location.href)) {
+    return getJuejinArticleState(document, location.href);
   }
 
   return {
