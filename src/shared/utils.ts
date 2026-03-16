@@ -1,6 +1,7 @@
 export const WEIXIN_HOST = 'mp.weixin.qq.com';
 export const ZHIHU_HOST = 'zhuanlan.zhihu.com';
 export const JUEJIN_HOST = 'juejin.cn';
+export const CSDN_HOST = 'blog.csdn.net';
 
 export function normalizeText(value: string | null | undefined): string {
   return (value ?? '').replace(/\s+/g, ' ').trim();
@@ -53,6 +54,18 @@ export function isJuejinArticleUrl(url: string): boolean {
     return (
       parsed.host === JUEJIN_HOST &&
       /^\/post\/[a-zA-Z0-9]+/.test(parsed.pathname)
+    );
+  } catch {
+    return false;
+  }
+}
+
+export function isCsdnArticleUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    return (
+      parsed.host === CSDN_HOST &&
+      /^\/[a-zA-Z0-9_-]+\/article\/details\/\d+/.test(parsed.pathname)
     );
   } catch {
     return false;
@@ -115,5 +128,8 @@ export function getErrorMessage(error: unknown): string {
 }
 
 export function isSupportedArticleUrl(url: string): boolean {
-  return isWeixinArticleUrl(url) || isZhihuArticleUrl(url) || isJuejinArticleUrl(url);
+  return isWeixinArticleUrl(url)
+    || isZhihuArticleUrl(url)
+    || isJuejinArticleUrl(url)
+    || isCsdnArticleUrl(url);
 }
