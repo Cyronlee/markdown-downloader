@@ -1,4 +1,5 @@
 export const WEIXIN_HOST = 'mp.weixin.qq.com';
+export const ZHIHU_HOST = 'zhuanlan.zhihu.com';
 
 export function normalizeText(value: string | null | undefined): string {
   return (value ?? '').replace(/\s+/g, ' ').trim();
@@ -26,6 +27,18 @@ export function isWeixinArticleUrl(url: string): boolean {
     return (
       parsed.host === WEIXIN_HOST &&
       (parsed.pathname === '/s' || parsed.pathname.startsWith('/s/'))
+    );
+  } catch {
+    return false;
+  }
+}
+
+export function isZhihuArticleUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    return (
+      parsed.host === ZHIHU_HOST &&
+      /^\/p\/\d+/.test(parsed.pathname)
     );
   } catch {
     return false;
@@ -85,4 +98,8 @@ export function getErrorMessage(error: unknown): string {
   }
 
   return String(error);
+}
+
+export function isSupportedArticleUrl(url: string): boolean {
+  return isWeixinArticleUrl(url) || isZhihuArticleUrl(url);
 }

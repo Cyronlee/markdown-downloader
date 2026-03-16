@@ -2,7 +2,7 @@
   "name": "markdown-downloader",
   "private": false,
   "version": "0.1.0",
-  "description": "Chrome MV3 extension for downloading WeChat public-account articles as Markdown with local images.",
+  "description": "Chrome MV3 extension for downloading WeChat and Zhihu articles as Markdown with local images.",
   "type": "module",
   "author": "Siyuan Li",
   "license": "MIT",
@@ -19,7 +19,8 @@
     "markdown",
     "wechat",
     "weixin",
-    "mv3"
+    "mv3",
+    "zhihu"
   ],
   "engines": {
     "node": ">=20.19.0"
