@@ -10,7 +10,7 @@ import {
 } from '../shared/types';
 import {
   getErrorMessage,
-  isWeixinArticleUrl,
+  isSupportedArticleUrl,
   sanitizeFileName,
 } from '../shared/utils';
 
@@ -217,21 +217,20 @@ async function downloadArticle(article: ExtractedArticle): Promise<void> {
 
 async function initialize(): Promise<void> {
   renderStatus({
-    title: '微信公众号 Markdown 下载器',
+    title: '文章 Markdown 下载器',
     description: '正在检测当前页面…',
     tone: 'loading',
   });
 
   const activeTab = await getActiveTab();
-  if (!isWeixinArticleUrl(activeTab.url)) {
+  if (!isSupportedArticleUrl(activeTab.url)) {
     renderStatus({
       title: '当前页面不支持',
-      description: '首版只支持 mp.weixin.qq.com 的公众号文章页面。',
+      description: '目前支持 mp.weixin.qq.com 与 zhuanlan.zhihu.com 文章页面。',
       tone: 'error',
     });
     return;
   }
-
   const articleState = await sendMessage<ActiveArticleState>(
     activeTab.id,
     MESSAGE_TYPES.getActiveArticleState,
